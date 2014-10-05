@@ -1,16 +1,30 @@
 'use strict';
 
-describe('myApp.view2 module', function() {
+/* jasmine specs for controllers go here */
+describe('View2 controllers', function() {
+
+  beforeEach(function(){
+    this.addMatchers({
+      toEqualData: function(expected) {
+        return angular.equals(this.actual, expected);
+      }
+    });
+  });
 
   beforeEach(module('myApp.view2'));
 
-  describe('view2 controller', function(){
+  describe('myApp.view2 module', function() {
+  	var scope, ctrl;
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var view2Ctrl = $controller('View2Ctrl');
-      expect(view2Ctrl).toBeDefined();
-    }));
+  	beforeEach(inject(function($rootScope, $controller) {
+  		scope = $rootScope.$new();
+  		ctrl = $controller('View2Ctrl', {$scope: scope});
+  	}));  
+
+  	it('should ....', function() {
+  		
+  		expect(ctrl).toBeDefined();
+  	});
 
   });
 });

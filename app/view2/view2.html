@@ -1,5 +1,11 @@
+
 <p>This is the partial for view 2.</p>
 <p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
+	Showing of 'interpolate' filter:
+	{{ 'Current version is v%VERSION%.' | interpolate }}
+
+	<h2 ng-controller='View2Ctrl'>Setup</h2>
+	{{ setup.front_camber }}
+	{{ setup.front_toe }}
+	{{ setup.front_ride_height }}
 </p>
