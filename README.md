@@ -9,6 +9,12 @@ framework and a bunch of development and testing tools for instant web developme
 
 The seed app doesn't do much, just shows how to wire two controllers and views together.
 
+## Deploy to Heroku
+Using express instead of http-server to serve the site. I went ahead and changed both the dev and production system to use this (Profile starts it the same way as I do in the dev env, and we have server.js to use express and start things up).
+```
+git push origin master
+git push heroku master
+```
 
 ## Getting Started
 
