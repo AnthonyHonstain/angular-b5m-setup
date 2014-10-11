@@ -13,7 +13,7 @@ view2Controllers.controller('View2Ctrl', ['$scope',
 	function($scope) {
 		$scope.setup = {
 			'front_camber': -1,
-			'front_toe': 0,
+			'front_toe': 2,
   		'front_ride_height': 23, // TODO - consider units
   	}
   }
