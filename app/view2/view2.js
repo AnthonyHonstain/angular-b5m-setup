@@ -20,7 +20,14 @@ view2Controllers.controller('View2Ctrl', ['$scope', 'SetupManager',
     /*
     Starting to work towards using a REST resource to source all this data.
     */
-    $scope.test = SetupManager.query();
+    // LIST
+    //$scope.test = SetupManager.query();
+    // GET
+    //$scope.test = SetupManager.get({'id':2})
 
+    $scope.test = new SetupManager();
+    $scope.test.title = 'foobar';
+    $scope.test.code = 'hello foo world';
+    SetupManager.save($scope.test);
   }
 ]);
