@@ -17,7 +17,20 @@ setupManagerServices.factory('SetupManager', ['$resource',
 	     No 'Access-Control-Allow-Origin' header is present on the requested 
 	     resource. Origin 'http://localhost:3000' is therefore not allowed access. 
 	  */
-	  return $resource('http://localhost:8000/snippets/snippets/:id'); // Note the full endpoint address
+	  return $resource('http://localhost:8000/snippets/snippets/:pk', 
+	  	{ pk: '@_pk' },
+	  	{
+	  		update: {
+	  			method: 'PUT',
+	  			params: {
+                pk: "@pk"
+          }
+	  		}
+	  	},{ // Not sure this is a good idea, or even matters in my version of angular.
+	  		stripTrailingSlashes: false
+	  	}
+
+	  ); // Note the full endpoint address
 
 	}
 	]);

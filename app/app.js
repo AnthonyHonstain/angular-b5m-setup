@@ -14,10 +14,14 @@ angular.module('myApp', [
   'ui.bootstrap',
 
   'setupManagerServices'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}]).config(function($httpProvider) {
+]).config(['$routeProvider', '$httpProvider', 
+  function($routeProvider, $httpProvider) 
+  {
+    $routeProvider.otherwise({redirectTo: '/view1'});
+
     //Enable cross domain calls
     $httpProvider.defaults.useXDomain = true;
-});
+  }
+]);
+
+
