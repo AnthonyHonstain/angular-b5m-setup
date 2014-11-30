@@ -23,7 +23,13 @@ setupManagerServices.factory('SetupManager', ['$resource',
 	  		update: {
 	  			method: 'PUT',
 	  			params: {
-                pk: "@pk"
+	  				pk: "@pk"
+          }
+	  		},
+	  		delete: {	
+	  			method: 'DELETE',
+	  			params: {
+	  				pk: "@pk"
           }
 	  		}
 	  	},{ // Not sure this is a good idea, or even matters in my version of angular.

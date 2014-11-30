@@ -5,40 +5,20 @@
 	{{ 'Current version is v%VERSION%.' | interpolate }}
 </p>
 
-<p>
-TEST {{ test }}
-</p>
-<p>
-TEST {{ before }}
-</p>
-<p>
-TEST {{ after }}
-</p>
 
-<h2>Setup</h2>
-<p>
-	Dump out the raw setup data {{ setup }}
-</p>
+<a href="#view2new" class="btn-primary btn-lg">Add New Setup</a>
 
-<div class="row">
-	<div class="col-sm-4">
-		<h4>Camber</h4>
-		<pre>{{front_camber || setup.front_camber}}</pre>
-		<div class="btn-group">
-			<label class="btn btn-primary" ng-model="front_camber" btn-radio="'0'">0</label>
-			<label class="btn btn-primary" ng-model="front_camber" btn-radio="'-1'">-1</label>
-			<label class="btn btn-primary" ng-model="front_camber" btn-radio="'-2'">-2</label>
-		</div>			
-	</div>
-	<div class="col-sm-4">
-		<h4>Front Toe</h4>
-		<pre>{{front_toe || setup.front_toe}}</pre>
-		<div class="btn-group">
-			<label class="btn btn-primary" ng-model="front_toe" btn-radio="'-2'">-2</label>
-			<label class="btn btn-primary" ng-model="front_toe" btn-radio="'-1'">-1</label>
-			<label class="btn btn-primary" ng-model="front_toe" btn-radio="'0'">0</label>
-			<label class="btn btn-primary" ng-model="front_toe" btn-radio="'1'">1</label>
-			<label class="btn btn-primary" ng-model="front_toe" btn-radio="'2'">2</label>
-		</div>		
-	</div>
-</div>
+<table class="table">
+	<tr>
+		<td><h3>All Setups</h3></td>
+		<td></td>
+	</tr>
+	<tr ng-repeat="setup in test">
+		<td>{{ setup.title }}</td>
+		<td>
+			<a class="btn btn-primary" ui-sref="viewSetup({pk:setup.pk})">View</a>
+			<a class="btn btn-danger" ng-click="deleteSetup(setup)">Delete</a>
+		</td>
+	</tr>
+</table>
+
