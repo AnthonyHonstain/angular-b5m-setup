@@ -16,7 +16,7 @@
 	<tr ng-repeat="setup in test">
 		<td>{{ setup.title }}</td>
 		<td>
-			<a class="btn btn-primary" ui-sref="viewSetup({pk:setup.pk})">View</a>
+			<a class="btn btn-primary" ng-click="view2Update(setup.pk)">View</a>
 			<a class="btn btn-danger" ng-click="deleteSetup(setup)">Delete</a>
 		</td>
 	</tr>

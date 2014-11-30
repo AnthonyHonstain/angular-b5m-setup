@@ -9,6 +9,9 @@ view2Controllers.config(['$routeProvider', function($routeProvider) {
   }).when('/view2new', {
     templateUrl: 'view2/setup-add.html',
     controller: 'SetupAdd'
+  }).when('/view2update/:pk', {
+    templateUrl: 'view2/setup-update.html',
+    controller: 'SetupUpdate'
   });
 }])
 
@@ -25,6 +28,9 @@ view2Controllers.controller('View2Ctrl', ['$scope', '$location', 'SetupManager',
       });
     };
 
+    $scope.view2Update = function(pk) {
+      $location.path('/view2update/' + pk)
+    };
    }
 ]);
 
@@ -39,3 +45,17 @@ view2Controllers.controller('SetupAdd', ['$scope', '$location', 'SetupManager',
   }
 ]);
 
+view2Controllers.controller('SetupUpdate', ['$scope', '$routeParams', '$location', 'SetupManager',
+  function($scope, $routeParams, $location, SetupManager) {
+    
+    var simpleGet = SetupManager.get({'pk':$routeParams.pk}, function() {
+      $scope.setup = simpleGet;
+    });
+
+    $scope.submit = function() {
+      $scope.setup.$update(function() {
+        $location.path('/view2');
+      });    
+    };
+  }
+]);
