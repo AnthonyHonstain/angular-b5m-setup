@@ -29,7 +29,7 @@ view2Controllers.controller('View2Ctrl', ['$scope', '$location', 'SetupManager',
     };
 
     $scope.view2Update = function(pk) {
-      $location.path('/view2update/' + pk)
+      $location.path('/view2update/' + pk);
     };
    }
 ]);
@@ -47,15 +47,25 @@ view2Controllers.controller('SetupAdd', ['$scope', '$location', 'SetupManager',
 
 view2Controllers.controller('SetupUpdate', ['$scope', '$routeParams', '$location', 'SetupManager',
   function($scope, $routeParams, $location, SetupManager) {
-    
+
     var simpleGet = SetupManager.get({'pk':$routeParams.pk}, function() {
       $scope.setup = simpleGet;
     });
 
     $scope.submit = function() {
+
       $scope.setup.$update(function() {
         $location.path('/view2');
-      });    
+      }, function(data, status) {
+        // Handle the error
+        if ('value' in data.data)
+        {
+          $scope.form['value'].$dirty = true;
+          $scope.form['value'].$setValidity(false);
+        }
+      });
     };
+
+
   }
 ]);
