@@ -11,6 +11,8 @@
     "angular-resource": "1.2.x",
     "angular-loader": "1.2.x",
     "angular-mocks": "~1.2.x",
+    "angular-cookies": "1.2.x",
+    "angular-sanitize": "1.2.x",
     "html5-boilerplate": "~4.3.0",
     "bootstrap": "3.x",
     "angular-bootstrap": "0.11.2"

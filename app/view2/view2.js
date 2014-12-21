@@ -1,6 +1,6 @@
   'use strict';
 
-var view2Controllers = angular.module('myApp.view2', ['ngRoute'])
+var view2Controllers = angular.module('myApp.view2', ['ngRoute']);
 
 view2Controllers.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view2', {
