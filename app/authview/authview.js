@@ -6,7 +6,7 @@ authviewControllers.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/authview', {
     templateUrl: 'authview/authview.html',
     controller: 'AuthCtrl'
-  }).when('/dashboardfoo', {
+  }).when('/dashboard', {
     templateUrl: 'authview/dashboardtemp.html',
     controller: 'DashboardCtrl'
   });
@@ -22,11 +22,14 @@ authviewControllers.controller('AuthCtrl', ['$scope', '$location', 'AuthService'
 
       if (username && password)
       {
+        console.log("ATTEMPTING AUTH");
         AuthService.register(username, password).then(
           function () {
+            console.log("AUTH WORKED!");
             $location.path('/dashboard');
           },
-          function () {
+          function (error) {
+            console.log("AUTH ERROR");
             $scope.registerError = error;
           }
           );
@@ -44,9 +47,10 @@ authviewControllers.controller('DashboardCtrl', ['$scope', '$window', '$location
     console.log("CHECK AUTH");
     if (!$window.localStorage.token) {
       console.log("NOT AUTHORIZED");
-      //$location.path('/');
+      $location.path('/authview');
       return;
     }
+    console.log("AUTHORIZED")
     $scope.token = $window.localStorage.token;
     $scope.username = $window.localStorage.username;
   }

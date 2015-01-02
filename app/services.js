@@ -43,18 +43,19 @@ setupManagerServices.factory('SetupManager', ['$resource',
 
 var authService = angular.module('authService', []);
 
-authService.factory('AuthService', function ($http, API_SERVER) 
+authService.factory('AuthService', function($http, API_SERVER, $q, $window) 
 	{
 
-		var register = function (username, password) 
+		var authenticateTool = function (username, password, endpoint) 
 		{
+			var url = API_SERVER + endpoint;
 			// Create the promise, we are deferring the $http.post promise to laster
 			var deferred = $q.defer();
-			var url = API_SERVER + 'register/';
+			var url = API_SERVER + '/register';
 			
 			$http.post(url, 'username=' + username + '&password=' +  password, {
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			}).then( 
 			function (response) {
@@ -70,15 +71,21 @@ authService.factory('AuthService', function ($http, API_SERVER)
 				}
 			},
 			function (response) {
+				console.log('Error response:', response.data);
 				deferred.reject(response.data.error);
 		  }		
 			);
+			
 			return deferred.promise;
 		}
 
+
 		return {
-			register: function (username, password) {
-				return register(username, password);
+		 register: function (username, password) {
+				return authenticateTool(username, password, 'register/');
+			},
+			login: function (username, passowrd) {
+				return authenticateTool(username, password, 'login/');
 			}
 		}
 	});
