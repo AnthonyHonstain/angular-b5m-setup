@@ -21,10 +21,12 @@ var app = angular.module('myApp', [
   'ui.bootstrap',
 
   'setupManagerServices',
-  'authService'
+  'authService',
+  'authStatusService'
 ]).config(['$routeProvider', '$httpProvider', 
   function($routeProvider, $httpProvider) 
   {
+    $httpProvider.interceptors.push('AuthInterceptor');
     //$routeProvider.otherwise({redirectTo: '/view1'});
 
     //Enable cross domain calls

@@ -41,6 +41,22 @@ setupManagerServices.factory('SetupManager', ['$resource',
 	}
 	]);
 
+
+/*
+Creating a ghetto endpoint on the django side to experiment with the
+token auth getting set correctly - NOT a full fledged REST endpoint.
+Just a proof of concept before I tried modifying something larger.
+*/
+var authStatusService = angular.module('authStatusService', ['ngResource']);
+
+authStatusService.factory('AuthStatusService', ['$resource',
+	function($resource){
+	  return $resource('http://localhost:8000/api/account_status'
+
+	  ); 
+	}
+	]);
+
 var authService = angular.module('authService', []);
 
 authService.factory('AuthService', function($http, API_SERVER, $q, $window) 
@@ -51,7 +67,6 @@ authService.factory('AuthService', function($http, API_SERVER, $q, $window)
 			var url = API_SERVER + endpoint;
 			// Create the promise, we are deferring the $http.post promise to laster
 			var deferred = $q.defer();
-			var url = API_SERVER + '/register';
 			
 			$http.post(url, 'username=' + username + '&password=' +  password, {
 				headers: {
@@ -79,13 +94,36 @@ authService.factory('AuthService', function($http, API_SERVER, $q, $window)
 			return deferred.promise;
 		}
 
+		var logout = function()
+		{
+			var deferred = $q.defer();
+			var url = API_SERVER  + '/logout';
+
+		  // Note - we are not trying to set the token for this call to the
+			// server here, we want a generalized way to include the token in the header.
+			$http.post(url).then(
+				function () {
+					$window.localStorage.removeItem('token');
+					$window.localStorage.removeItem('username');
+					deferred.resolve(true);		
+				},
+				function (error) {
+					deferred.reject(error.data.error);
+				}
+			);
+
+			return deferred.promise;
+		}
 
 		return {
 		 register: function (username, password) {
-				return authenticateTool(username, password, 'register/');
+				return authenticateTool(username, password, '/register');
 			},
-			login: function (username, passowrd) {
-				return authenticateTool(username, password, 'login/');
+			login: function (username, password) {
+				return authenticateTool(username, password, '/login');
+			},
+			logout: function() {
+				return logout();
 			}
 		}
 	});
